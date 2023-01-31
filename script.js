@@ -57,6 +57,12 @@ function changeColorMode(sketchBoard, colorMode) {
                 })
             );
             break;
+        case "eraser":
+            pixels.forEach((pixel) =>
+                pixel.addEventListener("mouseover", (e) => {
+                    color(e, pixel, "white");
+                })
+            );
     }
 }
 
