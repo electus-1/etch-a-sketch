@@ -1,6 +1,6 @@
 :root {
-    --width: 600px;
-    --height: 600px;
+    --width: 640px;
+    --height: 640px;
 }
 
 body {
@@ -30,13 +30,6 @@ body {
 .container {
     display: flex;
     justify-content: center;
-}
-
-.range-container {
-    height: var(--height);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
 }
 
 .options {

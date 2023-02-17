@@ -1,48 +1,33 @@
 let isMouseDown;
 let colorPicked;
 // we start with normal color mode active because we need to use one when we are creating the sketchboard
-let activeColorMode = "normal";
+let activeColorMode = "normal-mode";
 // we start by defining those values because we will use them when creating the sketchboard everytime something changes about the sketchboard
-let sketchBoardWidth = 600;
-let sketchBoardHeight = 600;
-let pixelsInARow = 16;
-let pixelsInAColumn = 16;
-
+let pixelCount = 16;
 main();
 
 function main() {
-    createSketchBoard(600, 600, pixelsInARow, pixelsInAColumn);
+    createSketchBoard(640, pixelCount);
     window.addEventListener("mousedown", () => (isMouseDown = true));
     window.addEventListener("mouseup", () => (isMouseDown = false));
-    document.querySelectorAll('input[type="range"]').forEach((range) =>
-        range.addEventListener("input", (e) => {
-            changeBoard(range.getAttribute("data-id"), range.value);
-        })
-    );
+    listenToRange();
+    listenToColorModeButtons();
 }
 
-function createSketchBoard(
-    sketchBoardHorizontalSideLength,
-    sketchBoardVerticalSideLength,
-    itemCountInARow,
-    itemCountInAColumn
-) {
-    const horizontalSideLength =
-        sketchBoardHorizontalSideLength / itemCountInARow;
-    const verticalSideLength =
-        sketchBoardVerticalSideLength / itemCountInAColumn;
+function createSketchBoard(sideLength, itemCount) {
+    const pixelSideLength = sideLength / itemCount;
     const sketchBoard = document.querySelector(".sketch-board");
     // we need to clear the previous sketchboard to create a new one
     while (sketchBoard.firstChild) {
         sketchBoard.firstChild.remove();
     }
     let pixel;
-    for (let i = 0; i < itemCountInARow; i++) {
-        for (let j = 0; j < itemCountInARow; j++) {
+    for (let i = 0; i < itemCount; i++) {
+        for (let j = 0; j < itemCount; j++) {
             pixel = document.createElement("div");
             pixel.classList.add("pixel");
-            pixel.style.height = `${verticalSideLength}px`;
-            pixel.style.width = `${horizontalSideLength}px`;
+            pixel.style.height = `${pixelSideLength}px`;
+            pixel.style.width = `${pixelSideLength}px`;
             sketchBoard.appendChild(pixel);
         }
     }
@@ -55,7 +40,7 @@ function changeColorMode(sketchBoard, colorMode) {
     // cloning the nodes to clear the event listener attached to those nodes
     pixels.forEach((pixel) => pixel.replaceWith(pixel.cloneNode(true)));
     switch (colorMode) {
-        case "rainbow":
+        case "rainbow-mode":
             ["mousedown", "mouseover"].forEach((event) => {
                 pixels.forEach((pixel) =>
                     pixel.addEventListener(event, (e) =>
@@ -64,7 +49,7 @@ function changeColorMode(sketchBoard, colorMode) {
                 );
             });
             break;
-        case "normal":
+        case "normal-mode":
             ["mousedown", "mouseover"].forEach((event) => {
                 pixels.forEach((pixel) =>
                     pixel.addEventListener(event, (e) =>
@@ -82,7 +67,7 @@ function changeColorMode(sketchBoard, colorMode) {
                 );
             });
             break;
-        case "eraser":
+        case "eraser-mode":
             ["mousedown", "mouseover"].forEach((event) => {
                 pixels.forEach((pixel) =>
                     pixel.addEventListener(event, (e) =>
@@ -117,39 +102,36 @@ function color(e, pixel, color) {
     }
 }
 
-function changeBoard(propertyToBeChanged, value) {
-    switch (propertyToBeChanged) {
-        case "width":
-            createSketchBoard(
-                value,
-                sketchBoardHeight,
-                pixelsInARow,
-                pixelsInAColumn
-            );
-            break;
-        case "height":
-            createSketchBoard(
-                sketchBoardWidth,
-                value,
-                pixelsInARow,
-                pixelsInAColumn
-            );
-            break;
-        case "row":
-            createSketchBoard(
-                sketchBoardWidth,
-                sketchBoardHeight,
-                value,
-                pixelsInAColumn
-            );
-            break;
-        case "column":
-            createSketchBoard(
-                sketchBoardWidth,
-                sketchBoardHeight,
-                pixelsInARow,
-                value
-            );
-            break;
-    }
+function reCreateBoard() {
+    createSketchBoard(640, pixelCount);
+}
+
+function listenToRange() {
+    const range = document.querySelector("#pixel-count-picker");
+    range.addEventListener("input", (e) => {
+        pixelCount = +range.value;
+        console.log(pixelCount);
+        document.querySelector(
+            "#shows-pixel-count"
+        ).textContent = `${pixelCount} x ${pixelCount}`;
+        reCreateBoard();
+    });
+}
+
+function listenToColorModeButtons() {
+    const sketchBoard = document.querySelector(".sketch-board");
+    const colorPicker = document.querySelector("#color-picker");
+    colorPicker.addEventListener("input", (e) => {
+        colorPicked = colorPicker.value;
+        changeColorMode(sketchBoard, "colorPicker");
+    });
+    document.querySelectorAll(".color-mode").forEach((button) =>
+        button.addEventListener("click", (e) => {
+            changeColorMode(sketchBoard, button.id);
+        })
+    );
+    const clearButton = document.querySelector("#clear");
+    clearButton.addEventListener("click", (e) => {
+        reCreateBoard();
+    });
 }
