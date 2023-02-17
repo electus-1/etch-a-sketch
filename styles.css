@@ -9,18 +9,39 @@ body {
     margin: 0px;
 }
 .sketch-board {
-    position: absolute;
-    top: calc(90vh - var(--height));
-    left: calc((100vw - var(--width)) / 2);
     width: var(--width);
     height: var(--height);
     display: flex;
     flex-wrap: wrap;
     z-index: 10;
+    flex: 0 0 auto;
 }
 
 .pixel {
     background-color: white;
     flex: 0 0 auto;
     z-index: 11;
+}
+
+.tip {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.range-container {
+    height: var(--height);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.options {
+    height: var(--height);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }

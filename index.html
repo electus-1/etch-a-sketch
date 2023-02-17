@@ -11,8 +11,44 @@
 </head>
 
 <body>
-    <div class="sketch-board"></div>
+    <h1 class="tip">PRESS LEFT-MOUSE BUTTON TO START DRAWING ON THE CANVAS</h1>
+    <div class="container">
+        <div class="options">
+            <div class="color-picker-container">
+                <input type="color" id="color-picker">
+                <label for="color-picker">Color Picker</label>
+            </div>
+            <button class="button" id="normal-mode">Black</button>
+            <button class="button" id="rainbow-mode">Rainbow</button>
+            <button class="button" id="eraser-mode">Eraser</button>
+            <button class="button" id="clear">Clear</button>
+        </div>
 
+        <div class="sketch-board"></div>
+
+        <div class="range-container">
+            <div class="range">
+                <input data-id="width" min="300" max="960" step="2" value="600" type="range" id="width-picker">
+                <label for="width-picker">Width(600)</label>
+            </div>
+
+            <div class="range">
+                <input data-id="height" min="300" max="960" step="2" value="600" type="range" id="height-picker">
+                <label for="height-picker">Height(600)</label>
+            </div>
+
+            <div class="range">
+                <input data-id="row" min="12" max="64" step="1" value="16" type="range" id="row-pixel-count-picker">
+                <label for="row-pixel-count-picker">Pixel Count In A Row(16)</label>
+            </div>
+
+            <div class="range">
+                <input data-id="column" min="12" max="64" step="1" value="16" type="range"
+                    id="column-pixel-count-picker">
+                <label for="column-pixel-count-picker">Pixel Count In A Column(16)</label>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
