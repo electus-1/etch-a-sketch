@@ -24,6 +24,7 @@ body {
 }
 
 .tip {
+    font-family: "Pacifico", cursive;
     margin-top: 5vh;
     text-align: center;
 }
@@ -54,6 +55,7 @@ body {
     padding: 10px 24px;
     width: 10vw;
     text-align: center;
+    font-family: "Courgette", cursive;
 }
 
 button:hover {
@@ -107,11 +109,13 @@ button:active {
 }
 
 label[for="color-picker"] {
+    font-family: "Pacifico", cursive;
     color: black;
     font-size: 24px;
 }
 
 #shows-pixel-count {
+    font-family: "Julee", cursive;
     color: black;
     font-size: 24px;
     font-weight: bold;
