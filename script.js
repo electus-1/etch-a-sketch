@@ -7,7 +7,7 @@ let pixelCount = 16;
 main();
 
 function main() {
-    createSketchBoard(640, pixelCount);
+    createSketchBoard(720, pixelCount);
     window.addEventListener("mousedown", () => (isMouseDown = true));
     window.addEventListener("mouseup", () => (isMouseDown = false));
     listenToRange();
@@ -103,7 +103,7 @@ function color(e, pixel, color) {
 }
 
 function reCreateBoard() {
-    createSketchBoard(640, pixelCount);
+    createSketchBoard(720, pixelCount);
 }
 
 function listenToRange() {
@@ -132,6 +132,7 @@ function listenToColorModeButtons() {
     );
     const clearButton = document.querySelector("#clear");
     clearButton.addEventListener("click", (e) => {
+        activeColorMode = "normal-mode";
         reCreateBoard();
     });
 }
